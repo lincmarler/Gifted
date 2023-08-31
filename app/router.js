@@ -1,4 +1,6 @@
 import { AboutController } from "./controllers/AboutController.js";
+import { GiftsController } from "./controllers/GiftsController.js";
+import { GiphyController } from "./controllers/GiphyController.js";
 import { HomeController } from "./controllers/HomeController.js";
 import { ValuesController } from "./controllers/ValuesController.js";
 import { AboutView } from "./views/AboutView.js";
@@ -10,14 +12,25 @@ import { AboutView } from "./views/AboutView.js";
 export const router = [
   {
     path: '',
-    controller: HomeController,
+    controller: [GiftsController, GiphyController],
     view: /*html*/`
-    <div class="card">
-      <div class="card-body">
-        <p>Home Page</p>
-        <button class="btn btn-dark" onclick="app.HomeController.testButton()">😎</button>
+<div class="row" >
+  <div class="col-8" >
+    <div class="row" id="gift-list"></div>
       </div>
-    </div>
+        <div class="col-4" id="gift-form">
+          <form action="" onsubmit="app.GiftsController.createGift()">
+            <input type="text" name="url" placeholder="Image URL">
+            <input type="text" name="tag" placeholder="Tag">
+            <button type="submit" class="btn btn-info">SUBMIT</button>
+          </form> 
+          <form onsubmit="app.GiphyController.search()" class="mt-5">
+            <input type="text" placeholder="search">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+          <section id="giphyImages"></section>
+        </div>
+      </div>
     `
   },
   {
